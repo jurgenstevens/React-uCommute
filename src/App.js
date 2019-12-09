@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-// import StationContainer from './StationContainer';
-import TripContainer from './TripContainer';
+import StationContainer from './StationContainer';
+// import StationList from './StationList';
+// import TripContainer from './TripContainer';
 import LoginRegisterForm from './LoginRegisterForm'
 
 
@@ -9,7 +10,7 @@ import LoginRegisterForm from './LoginRegisterForm'
 class App extends React.Component {
   constructor(){
     super()
-
+    console.log(process.env.REACT_APP_API_URL);
     this.state = {
         loggedIn: false,
         loggedInUserEmail: null
@@ -29,13 +30,14 @@ class App extends React.Component {
     if(parsedLoginResponse.status.code === 200){
       this.setState({
         loggedIn: true,
-        loggedInUserEmail: parsedLoginResponse.data.loggedInUserEmail
+        loggedInUserEmail: parsedLoginResponse.data.email
       })
     } else {
       console.log("Login Failed");
       console.log(parsedLoginResponse);
     }
   }
+
 
   register = async (registerInfo) => {
     const response = await fetch(process.env.REACT_APP_API_URL + '/api/v1/users/register', {
@@ -65,13 +67,14 @@ class App extends React.Component {
         {
           this.state.loggedIn
           ?
-          <TripContainer /> //within the trip container is the CRUD for trips
+          <StationContainer />
+          // <TripContainer /> //within the trip container is the CRUD for trips
                             // including the stations container and list
           :
           <LoginRegisterForm login={this.login} register={this.register} />
         }
       </div>
-    );
+    )
   }
 }
 

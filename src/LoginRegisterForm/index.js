@@ -14,7 +14,7 @@ class LoginRegisterForm extends React.Component {
 		}
 	}
 
-	LoginRegisterForm = () => {
+	loginRegister = () => {
 		if(this.state.action === "login"){
 			this.props.login({
 				email: this.state.email,
