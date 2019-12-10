@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import StationContainer from './StationContainer';
+// import StationContainer from './StationContainer';
 // import StationList from './StationList';
-// import TripContainer from './TripContainer';
+import TripContainer from './TripContainer';
 import LoginRegisterForm from './LoginRegisterForm'
 
 
@@ -67,7 +67,7 @@ class App extends React.Component {
         {
           this.state.loggedIn
           ?
-          <StationContainer />
+          <TripContainer />
           // <TripContainer /> //within the trip container is the CRUD for trips
                             // including the stations container and list
           :
