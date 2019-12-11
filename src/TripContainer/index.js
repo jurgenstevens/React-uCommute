@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import TripList from '../TripList';
-import { Grid, Dropdown } from 'semantic-ui-react';
+import StationList from '../StationList';
+import { Grid } from 'semantic-ui-react';
 
 class TripContainer extends Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-			stations: []
+			originStationsList: [],
+			destinationStationsList: [],
+			// stations: [],
+			// stationsList: [],
+			// line_color: "",
+			// direction: ""
 		}
 	}
 
 	componentDidMount(){
-		this.getStations();
+		this.listStationsByColor(this.props.selectTrainColorOrigin, this.state.selectTrainColorDestination)
+		this.getStations(this.state.stations)
 	}
 
 	// let's get some stations from the database here!
@@ -24,57 +30,97 @@ class TripContainer extends Component {
 				}
 			)
 			const parsedStations = await stations.json();
+			// console.log("parsedStations");
 			// console.log(parsedStations);
 			this.setState({
 				stations: parsedStations.data // importing all the stations thru here!
 			});
+		console.log("this.state -- getStations")
+		console.log(this.state);
 		} catch (err) {
 			console.log(err);
 		}
 	}
 
+	// listStationsByColor = async (line_color, direction) => {
+	// console.log(line_color);
+	// console.log(direction);
+	// // display stations by color chosen and have them display in the drop down
+	// 	try {
+	// 		const stations = await fetch(process.env.REACT_APP_API_URL + '/api/v1/stations/' + line_color + '/' + direction, 
+	// 			{
+	// 				method: 'GET',
+	// 				credentials: 'include'
+	// 			}
+	// 			);
+	// 		const parsedStationList = await stations.json()
+	// 		this.setState({
+	// 			stationsList: [...parsedStationList.data]
+	// 		}	
+	// 	} catch (err){
+	// 		console.log(err);
+	// 	}
+	// }
+	// setOrigin = async (e) => {
+	// //	if user clicks a color [i] and direction [i]
+	// 	this.setState({
+	// 		line_color: {},
+	// 		direction: {}
+	// 	})
+	// 	console.log("You set your origin!");
+	// }
 
-	// EVERYTHING BELOW WILLBE IN THE TRIP CONTAINER
+	// setDestination = async (e) => {
+	// //	if user clicks a color [i] and direction [i]
+	// 	this.setState({
+	// 		line_color: {},
+	// 		direction: {}
+	// 	})
+	// 	console.log("You set your destination!");
+	// }
 
-	listLineColors = async () => {
-	// organize stations by colors
-	// display them in drop down
+	listStationsByColor = async (tripInfo) => {
+		console.log("in listStationsByColor")
+		// trip info has origin, color, and direction
+		// if origin is true, you know that the info you're getting form the query is for the origin stations list
+		// else, it's for the destination stations list
 
+		// only send color and direction info to the api
+
+		// the origin info is ONLY for the front end
+
+		// put all the above in a condional where if the array of stations IS NOT an empty array, DO NOT do the query
+		// IN OTHER WORDS:
+		// if you already got all the origin stations, AND if the 'origin' field in the tripInfo is 'true', 
+		// DO NOT do the query to get the origin stations again
+
+		/////////////////////////////////////////////////////////
+		// try {
+		// const stations = await fetch(
+		// 	process.env.REACT_APP_API_URL + "/api/v1/stations/" + line_color + "/" + direction, {
+	 //        	credentials: "include"
+		// 	}
+		// );
+		// const parsedStationList = await stations.json();
+
+		// this.setState({
+		// 	stationsList: parsedStationList.data
+	 //    });
+	 //    console.log("this.state -- listStationsByColor");
+	 //    console.log(this.state)
+	  // } catch (err) {
+
+	  // }
 	}
 
-	listStationsByColor = async () => {
-	// display stations by color chosen
-	// have them display in the drop down
+	//findStations = () => {
+			// after getting parsed response, if origin from function argument is true,  
+	// }
 
-
-	}
-
-	// duplicate and set them as origin and destination
-	setOrigin = async () => {
-
-	}
-
-	setDestination = async () => {
-
-	}
-
-	// once the values are chosen, have them set in the create trip container to create a trip
-	createTheTrip = async () => {
-	// when trip is created, it will loop between the origin and destination in the show page
-
-	}
-
-	updateTrip = async () => {
-	// in the show page it will give the user the option to edit/update the trip
-
-
-	}
-
-	saveTrip = async () => {
-	// or save the trip. 
-	// If the user clicks "Save Trip", it will display in the saved trips show page
-
-
+	createYourTrip = (infoForTrip) => {
+		// get stuff from the origin and do query to get origin station
+		// get stuff from the destination and do query to get destination station
+		// put it in state
 	}
 
 	render(){
@@ -85,15 +131,19 @@ class TripContainer extends Component {
 					<h3>Welcome back!</h3>
 					<h3>Plan Your Trip!</h3>
 				</div>
-				<TripList
-					stations={this.state.stations}
+				<StationList
+					setOrigin={this.setOrigin}
+					setDestination={this.setDestination}
+					stationsList={this.state.stationsList}
+					listStationsByColor={this.listStationsByColor}
+					createYourTrip={this.createYourTrip}
 				/>
 
 			</Grid>
 		)
 	}
-
 }
+
 
 export default TripContainer
 
