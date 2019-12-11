@@ -91,34 +91,32 @@ class TripContainer extends Component {
 		// if origin is true, you know that the info you're getting form the query is for the origin stations list
 		// if(this.props.origin === true && this.props.DirectionOrigin === true){
 		// // else, it's for the destination stations list
-		const getStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
+		const getOriginStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
         	credentials: "include"
 		})
-		const stationListParsed = await getStationsListResponse.json()
-		console.log(stationListParsed);
+		const originStationListParsed = await getOriginStationsListResponse.json()
+		this.setState({
+			originStationsList: originStationListParsed.data
+		})
+		console.log(originStationListParsed);
 	
 		// only send color and direction info to the api
 
 		// the origin info is ONLY for the front end
-
+		const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
+        	credentials: "include"
+		})
+		const destinationStationListParsed = await getDestinationStationsListResponse.json()
+		this.setState({
+			destinationStationsList: destinationStationListParsed.data
+		})
+		console.log(destinationStationListParsed);
 		// put all the above in a condional where if the array of stations IS NOT an empty array, DO NOT do the query
 		// IN OTHER WORDS:
 		// if you already got all the origin stations, AND if the 'origin' field in the tripInfo is 'true', 
 		// DO NOT do the query to get the origin stations again
 
 		/////////////////////////////////////////////////////////
-		// try {
-		// );
-		// const parsedStationList = await stations.json();
-
-		// this.setState({
-		// 	stationsList: parsedStationList.data
-	 //    });
-	 //    console.log("this.state -- listStationsByColor");
-	 //    console.log(this.state)
-	  // } catch (err) {
-
-	  // }
 	}
 
 	//findStations = () => {
@@ -145,6 +143,8 @@ class TripContainer extends Component {
 					stationsList={this.state.stationsList}
 					listStationsByColor={this.listStationsByColor}
 					createYourTrip={this.createYourTrip}
+					originStationsList={this.state.originStationsList}
+					destinationStationsList={this.state.destinationStationsList}
 				/>
 
 			</Grid>

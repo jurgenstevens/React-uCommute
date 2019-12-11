@@ -77,7 +77,7 @@ class StationList extends React.Component {
 		// is in TripContainer
 		else if(this.state.ColorDestination && this.state.DirectionDestination ){
 			const infoForDestinationStations = {
-				origin: false,
+				origin: true,
 				ColorDestination: this.state.ColorDestination,
 				DirectionDestination: this.state.DirectionDestination
 			}
@@ -104,10 +104,37 @@ class StationList extends React.Component {
 			direction.push(<option key={index}>{value}</option>)
 		}
 
-		// const lineStations = null
-		// const stationList = 
-		// for(const [index])
+		// lineStations contains the JSON with the requested train stops from the database
+		const originLineStations = this.props.originStationsList
+		const originStations = originLineStations.map(originStation => {
+			return(
+				<option key={originStation.id} data={originStation.id}>{originStation.station_name}</option>
+			)
+			
+		})
 
+		const destinationLineStations = this.props.destinationStationsList
+		const destinationStations = destinationLineStations.map(destinationStation => {
+			return(
+				<option key={destinationStation.id} data={destinationStation.id}>{destinationStation.station_name}</option>
+			)
+			
+		})
+		// const stationIds = lineStations.map(station => station.id)
+		// console.log('station ids:', stationIds)
+		// for(let i = 0; i < stations.length; i++){
+		// 	return(<option key={station.id}>{station.name}</option>)
+		// }
+
+		// const stationList = stations.map(station => {
+		// 	return(
+		// 		option
+		// 	)
+		// })
+
+		// const stationList = lineStations.map(station => 
+		// )
+		// console.log('this is the stationList:', stationList);
 		return (
 			<Grid.Row>
 				<Card.Group>
@@ -129,7 +156,7 @@ class StationList extends React.Component {
 						</select>
 						<h3>Select Station:</h3>
 						<select className="stationList">
-
+							{ originStations }
 						</select>					
 			
 						<h1>Destination</h1>
@@ -145,7 +172,7 @@ class StationList extends React.Component {
 						</select>
 						<h3>Select Station:</h3>
 						<select className="stationList">
-
+							{ destinationStations }
 						</select>
 					</Card.Content>
 				</Card.Group>
