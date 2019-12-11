@@ -17,7 +17,7 @@ class TripContainer extends Component {
 	}
 
 	componentDidMount(){
-		this.listStationsByColor(this.props.selectTrainColorOrigin, this.state.selectTrainColorDestination)
+		// this.listStationsByColor(this.props.selectTrainColorOrigin, this.state.selectTrainColorDestination)
 		this.getStations(this.state.stations)
 	}
 
@@ -80,11 +80,23 @@ class TripContainer extends Component {
 	// }
 
 	listStationsByColor = async (tripInfo) => {
-		console.log("in listStationsByColor")
-		// trip info has origin, color, and direction
-		// if origin is true, you know that the info you're getting form the query is for the origin stations list
-		// else, it's for the destination stations list
+		console.log("in listStationsByColor, here's tripInfo")
+		console.log(tripInfo)
+		console.log(tripInfo.DirectionOrigin); // this keeps coming back undefined ????? WHYYYYYLKEJDKLFHASK:LDFN<
+		console.log(tripInfo.ColorOrigin); // this too
+		// if(this.props.DirectionOrigin === true && this.props.DirectionDestination === true){
 
+		// };
+		// tripInfo has origin, color, and direction
+		// if origin is true, you know that the info you're getting form the query is for the origin stations list
+		// if(this.props.origin === true && this.props.DirectionOrigin === true){
+		// // else, it's for the destination stations list
+		const getStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
+        	credentials: "include"
+		})
+		const stationListParsed = await getStationsListResponse.json()
+		console.log(stationListParsed);
+	
 		// only send color and direction info to the api
 
 		// the origin info is ONLY for the front end
@@ -96,10 +108,6 @@ class TripContainer extends Component {
 
 		/////////////////////////////////////////////////////////
 		// try {
-		// const stations = await fetch(
-		// 	process.env.REACT_APP_API_URL + "/api/v1/stations/" + line_color + "/" + direction, {
-	 //        	credentials: "include"
-		// 	}
 		// );
 		// const parsedStationList = await stations.json();
 

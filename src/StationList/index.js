@@ -30,6 +30,7 @@ class StationList extends React.Component {
 
 	// 
 	handleChange = (e) => {
+		console.log("handleChange");
 		this.setState({
 			[e.target.name]: e.target.value
 		}, () => {
@@ -37,6 +38,7 @@ class StationList extends React.Component {
 		})
 	}
 
+	// this is for the create a trip button
 	handleSubmit = (e) => {
 		e.preventDefault()
 		if(this.state.ColorOrigin !== undefined && this.state.DirectionOrigin !== undefined && this.state.ColorDestination !== undefined && this.state.DirectionDestination !== undefined) {
@@ -55,13 +57,20 @@ class StationList extends React.Component {
 		}
 	}
 
+	// this is for the station dropdown to list all of the stations. Origins cannot
+	// be null
 	checkForTripInfo = () => {
+		console.log("Check for trip info");
+
+		// ORIGIN both color and direction have been selected 
 		if(this.state.ColorOrigin && this.state.DirectionOrigin) {
+			console.log("ORIGIN both color and direction have been selected ");
 			const infoForOriginStations = {
 				origin: true,
 				ColorOrigin: this.state.ColorOrigin,
 				DirectionOrigin: this.state.DirectionOrigin,
 			}
+			// this is listStationsByColor = async (tripInfo)
 			this.props.listStationsByColor(infoForOriginStations)
 		}
 		// check destination color and direction, if both not null do query for stations and list stations in dropdown which
@@ -72,6 +81,7 @@ class StationList extends React.Component {
 				ColorDestination: this.state.ColorDestination,
 				DirectionDestination: this.state.DirectionDestination
 			}
+			// this is listStationsByColor = async (tripInfo)
 			this.props.listStationsByColor(infoForDestinationStations)
 
 		}
