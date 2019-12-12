@@ -10,7 +10,10 @@ class StationList extends React.Component {
 			DirectionOrigin: undefined,
 			ColorDestination: undefined,
 			DirectionDestination: undefined,
+			originStation: undefined,
+			destinationStation: undefined,
 			incompleteForm: false
+
 			// listStationsByColor:
 		}
 	}
@@ -31,6 +34,9 @@ class StationList extends React.Component {
 	// 
 	handleChange = (e) => {
 		console.log("handleChange");
+
+			console.log("CURRENT TARGET >>>>>> ", e.currentTarget.value);
+			console.log("TARGET >>>>>> ", e.target.value);
 		this.setState({
 			[e.target.name]: e.target.value
 		}, () => {
@@ -43,10 +49,8 @@ class StationList extends React.Component {
 		e.preventDefault()
 		if(this.state.ColorOrigin !== undefined && this.state.DirectionOrigin !== undefined && this.state.ColorDestination !== undefined && this.state.DirectionDestination !== undefined) {
 			const infoForTrip = {
-				ColorOrigin: this.state.ColorOrigin,
-				DirectionOrigin: this.state.DirectionOrigin,
-				ColorDestination: this.state.ColorDestination,
-				DirectionDestination: this.state.DirectionDestination
+				originStation: this.state.originStation,
+				destinationStation: this.state.destinationStation
 			}
 			this.props.createYourTrip(infoForTrip)
 		}
@@ -56,6 +60,9 @@ class StationList extends React.Component {
 			})
 		}
 	}
+
+
+
 
 	// this is for the station dropdown to list all of the stations. Origins cannot
 	// be null
@@ -75,12 +82,15 @@ class StationList extends React.Component {
 		}
 		// check destination color and direction, if both not null do query for stations and list stations in dropdown which
 		// is in TripContainer
-		else if(this.state.ColorDestination && this.state.DirectionDestination ){
+		console.log(this.state.ColorDestination);
+		console.log(this.state.DirectionDestination);
+		if (this.state.ColorDestination && this.state.DirectionDestination ){
 			const infoForDestinationStations = {
 				origin: true,
 				ColorDestination: this.state.ColorDestination,
 				DirectionDestination: this.state.DirectionDestination
 			}
+			console.log('THIS IS INFO FOR DESTINATION', infoForDestinationStations);
 			// this is listStationsByColor = async (tripInfo)
 			this.props.listStationsByColor(infoForDestinationStations)
 
@@ -105,21 +115,22 @@ class StationList extends React.Component {
 		}
 
 		// lineStations contains the JSON with the requested train stops from the database
-		const originLineStations = this.props.originStationsList
-		const originStations = originLineStations.map(originStation => {
-			return(
-				<option key={originStation.id} data={originStation.id}>{originStation.station_name}</option>
-			)
-			
-		})
-
 		const destinationLineStations = this.props.destinationStationsList
 		const destinationStations = destinationLineStations.map(destinationStation => {
 			return(
-				<option key={destinationStation.id} data={destinationStation.id}>{destinationStation.station_name}</option>
+				<option key={destinationStation.id} id={destinationStation.id} value={destinationStation.id}>{destinationStation.station_name}</option>
 			)
-			
 		})
+		// console.log('These are the DESTINATION stations', destinationStations);
+
+		const originLineStations = this.props.originStationsList
+		const originStations = originLineStations.map(originStation => {
+			return(
+				<option key={originStation.id} id={originStation.id} value={originStation.id}>{originStation.station_name}</option>
+			)
+		})
+		// console.log('These are the ORIGIN stations', originStations);
+
 		// const stationIds = lineStations.map(station => station.id)
 		// console.log('station ids:', stationIds)
 		// for(let i = 0; i < stations.length; i++){
@@ -155,10 +166,13 @@ class StationList extends React.Component {
 							{direction}
 						</select>
 						<h3>Select Station:</h3>
-						<select className="stationList">
+						<select name="originStation" className="stationList" onChange={this.handleChange} value={this.state.originStation}>
 							{ originStations }
-						</select>					
-			
+						</select>	
+						</Card.Content>
+				</Card.Group>				
+				<Card.Group>
+					<Card.Content>			
 						<h1>Destination</h1>
 						<h3>Select Line:</h3>
 						<select name="ColorDestination" className="selectLine" onChange={this.handleChange} value={this.state.ColorDestination}>
@@ -171,7 +185,7 @@ class StationList extends React.Component {
 							{direction}
 						</select>
 						<h3>Select Station:</h3>
-						<select className="stationList">
+						<select name="destinationStation" className="stationList" onChange={this.handleChange} value={this.state.destinationStation}>
 							{ destinationStations }
 						</select>
 					</Card.Content>

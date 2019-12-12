@@ -42,55 +42,14 @@ class TripContainer extends Component {
 		}
 	}
 
-	// listStationsByColor = async (line_color, direction) => {
-	// console.log(line_color);
-	// console.log(direction);
-	// // display stations by color chosen and have them display in the drop down
-	// 	try {
-	// 		const stations = await fetch(process.env.REACT_APP_API_URL + '/api/v1/stations/' + line_color + '/' + direction, 
-	// 			{
-	// 				method: 'GET',
-	// 				credentials: 'include'
-	// 			}
-	// 			);
-	// 		const parsedStationList = await stations.json()
-	// 		this.setState({
-	// 			stationsList: [...parsedStationList.data]
-	// 		}	
-	// 	} catch (err){
-	// 		console.log(err);
-	// 	}
-	// }
-	// setOrigin = async (e) => {
-	// //	if user clicks a color [i] and direction [i]
-	// 	this.setState({
-	// 		line_color: {},
-	// 		direction: {}
-	// 	})
-	// 	console.log("You set your origin!");
-	// }
-
-	// setDestination = async (e) => {
-	// //	if user clicks a color [i] and direction [i]
-	// 	this.setState({
-	// 		line_color: {},
-	// 		direction: {}
-	// 	})
-	// 	console.log("You set your destination!");
-	// }
-
 	listStationsByColor = async (tripInfo) => {
-		console.log("in listStationsByColor, here's tripInfo")
-		console.log(tripInfo)
-		console.log(tripInfo.DirectionOrigin); // this keeps coming back undefined ????? WHYYYYYLKEJDKLFHASK:LDFN<
-		console.log(tripInfo.ColorOrigin); // this too
-		// if(this.props.DirectionOrigin === true && this.props.DirectionDestination === true){
-
-		// };
-		// tripInfo has origin, color, and direction
-		// if origin is true, you know that the info you're getting form the query is for the origin stations list
-		// if(this.props.origin === true && this.props.DirectionOrigin === true){
-		// // else, it's for the destination stations list
+		// console.log("in listStationsByColor, here's tripInfo")
+		// console.log(tripInfo)
+		// console.log(tripInfo.DirectionOrigin); // this keeps coming back undefined ????? WHYYYYYLKEJDKLFHASK:LDFN<
+		// console.log(tripInfo.ColorOrigin); // this too
+		// console.log(tripInfo.ColorDestination);
+		console.log(this.state.originStationsList);
+		console.log(this.state.destinationStationsList);
 		const getOriginStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
         	credentials: "include"
 		})
@@ -98,25 +57,21 @@ class TripContainer extends Component {
 		this.setState({
 			originStationsList: originStationListParsed.data
 		})
-		console.log(originStationListParsed);
-	
+		// console.log(originStationListParsed);
 		// only send color and direction info to the api
-
 		// the origin info is ONLY for the front end
-		const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
+		const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorDestination + "/" + tripInfo.DirectionDestination, {
         	credentials: "include"
 		})
 		const destinationStationListParsed = await getDestinationStationsListResponse.json()
 		this.setState({
 			destinationStationsList: destinationStationListParsed.data
 		})
-		console.log(destinationStationListParsed);
+		// console.log(destinationStationListParsed);
 		// put all the above in a condional where if the array of stations IS NOT an empty array, DO NOT do the query
 		// IN OTHER WORDS:
 		// if you already got all the origin stations, AND if the 'origin' field in the tripInfo is 'true', 
 		// DO NOT do the query to get the origin stations again
-
-		/////////////////////////////////////////////////////////
 	}
 
 	//findStations = () => {
@@ -124,9 +79,19 @@ class TripContainer extends Component {
 	// }
 
 	createYourTrip = (infoForTrip) => {
-		// get stuff from the origin and do query to get origin station
-		// get stuff from the destination and do query to get destination station
-		// put it in state
+		console.log('this is INFO FOR TRIP >>>>>>>', infoForTrip);
+	// 	// get stuff from the origin and do query to get origin station
+		// const createdTripResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/trips/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
+	 //        	credentials: "include"
+		// })
+	// 		const originStationListParsed = await getOriginStationsListResponse.json()
+	// 		this.setState({
+	// 			originStations: originStationListParsed.data
+	// 	// get stuff from the destination and do query to get destination station
+	// 	const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorDestination + "/" + tripInfo.DirectionDestination, {
+ //        	credentials: "include"
+	// 	})
+	// 	// put it in state
 	}
 
 	render(){
