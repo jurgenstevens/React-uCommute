@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StationList from '../StationList';
+import TripList from '../TripList';
 import { Grid } from 'semantic-ui-react';
 
 class TripContainer extends Component {
@@ -9,6 +10,7 @@ class TripContainer extends Component {
 		this.state = {
 			originStationsList: [],
 			destinationStationsList: [],
+			createdTripList: []
 			// stations: [],
 			// stationsList: [],
 			// line_color: "",
@@ -78,23 +80,48 @@ class TripContainer extends Component {
 			// after getting parsed response, if origin from function argument is true,  
 	// }
 
-	createYourTrip = (infoForTrip) => {
+	createYourTrip = async (infoForTrip) => {
 		console.log('this is INFO FOR TRIP >>>>>>>', infoForTrip);
-	// 	// get stuff from the origin and do query to get origin station
-		// const createdTripResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/trips/" + tripInfo.ColorOrigin + "/" + tripInfo.DirectionOrigin, {
-	 //        	credentials: "include"
-		// })
-	// 		const originStationListParsed = await getOriginStationsListResponse.json()
-	// 		this.setState({
-	// 			originStations: originStationListParsed.data
-	// 	// get stuff from the destination and do query to get destination station
-	// 	const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorDestination + "/" + tripInfo.DirectionDestination, {
- //        	credentials: "include"
-	// 	})
-	// 	// put it in state
+	// get stuff from the origin and do query to get origin station
+		// get stuff from the destination and do query to get destination station
+		try{
+			const createdTripResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/trips/" + infoForTrip.originStation + "/" + infoForTrip.destinationStation, {
+					method: 'POST',
+		        	credentials: "include",
+		        	body: JSON.stringify(infoForTrip),
+		        	headers: {
+		        		'Content-Type': 'application/json'
+		        	}
+			})
+		// put it in state
+			const createdTripParsed = await createdTripResponse.json()
+				this.setState({
+					createdTripList: [...this.state.createdTripList, createdTripParsed.data]
+			})
+			console.log(createdTripParsed);
+		} catch(err){
+			console.log("Couldn't make the trip.");
+			console.log(err);
+		}
 	}
 
+	// deleteTrip = async (id) => {
+
+		
+	// }
+
+
+
+
+
+
 	render(){
+		// const theTrip = tripLine.map(trip => {
+		// 	return(
+		// 		<div >{ trip }</div>
+		// 	)
+		// })
+
 		return(
 			<Grid>
 				<div>
@@ -111,7 +138,9 @@ class TripContainer extends Component {
 					originStationsList={this.state.originStationsList}
 					destinationStationsList={this.state.destinationStationsList}
 				/>
-
+				<TripList
+					createdTripList={this.state.createdTripList}
+				/>
 			</Grid>
 		)
 	}

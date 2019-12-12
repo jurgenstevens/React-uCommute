@@ -1,3 +1,55 @@
+import React from 'react';
+import { List, Button } from 'semantic-ui-react';
+
+function TripList(props){
+	// process to list the trips
+	const tripStops = props.createdTripList.map((tripStop, index) => {
+		return(
+			// <h3> { tripStop.station_name } </h3>
+				<List>
+					<h3>This is your trip!</h3>
+					<List.Item>
+							<h3 id={tripStop.start.line_color}>{ tripStop.start.station_name }</h3>
+							<h3>>>>></h3>
+							<h3 id={tripStop.end.line_color}>{ tripStop.end.station_name }</h3>
+							<Button>Delete</Button>
+							<Button>Edit</Button>
+					</List.Item>
+				</List>
+		)
+	})
+	return(
+		<List>
+			{ tripStops }
+		</List>
+	)
+}
+
+export default TripList
+
+
+// data:
+// end: {direction: "Inbound", id: 7, line_color: "Orange", station_name: "Halsted", stop_id_dest: "O-G", …}
+// start: {direction: "Inbound", id: 1, line_color: "Orange", station_name: "Midway", stop_id_dest: "O-A", …}
+// __proto__: Object
+
+// summary: {
+//     numbers: {"123": 45,"678": 9,"101": 11},
+//     other-stuff: "some other stuff"
+// }
+
+// getNumbers() {
+//     if (this.props.summary.numbers) {
+//         return Object.keys(this.props.summary.numbers).map( (key) => {
+//             return <p>{key} => {this.props.summary.numbers[key]}</p>;
+//         });
+//     } else {
+//         return <p>data is not available</p>;
+//     }
+// }
+
+
+
 // import React from 'react';
 // import { Card, Button, Grid } from 'semantic-ui-react';
 

@@ -10,7 +10,7 @@ import LoginRegisterForm from './LoginRegisterForm'
 class App extends React.Component {
   constructor(){
     super()
-    console.log(process.env.REACT_APP_API_URL);
+
     this.state = {
         loggedIn: false,
         loggedInUserEmail: null

@@ -17,21 +17,9 @@ class StationList extends React.Component {
 			// listStationsByColor:
 		}
 	}
-
-	// selectTrainColorOrigin = (e) => {
-
-	// 	this.setState({ColorOrigin: e.target.value})
-	// 	console.log("You selected a train line origin");
-	// }
-
-	// selectTrainColorDestination = (e) => {
-	// 	this.setState({ColorDestination: e.target.value})
-	// 			console.log("You selected a train line destination");
-	// }
 	// f that looks in state and creates a new list of stations based on whatever color is chosen in state
 	// or if no color is chosen, grey out the drop down
 
-	// 
 	handleChange = (e) => {
 		console.log("handleChange");
 
@@ -60,9 +48,6 @@ class StationList extends React.Component {
 			})
 		}
 	}
-
-
-
 
 	// this is for the station dropdown to list all of the stations. Origins cannot
 	// be null
@@ -93,13 +78,10 @@ class StationList extends React.Component {
 			console.log('THIS IS INFO FOR DESTINATION', infoForDestinationStations);
 			// this is listStationsByColor = async (tripInfo)
 			this.props.listStationsByColor(infoForDestinationStations)
-
 		}
 	}
 
 	render() {
-		// console.log("this.state -- stationList")
-		// console.log(this.state)
 		// this is for the line color dropdown
 		const colorArr = ["Orange", "Red", "Blue", "Green", "Pink", "Brown", "Purple", "Yellow"]
 		const lines = []
@@ -118,34 +100,28 @@ class StationList extends React.Component {
 		const destinationLineStations = this.props.destinationStationsList
 		const destinationStations = destinationLineStations.map(destinationStation => {
 			return(
-				<option key={destinationStation.id} id={destinationStation.id} value={destinationStation.id}>{destinationStation.station_name}</option>
+				<option key={destinationStation.id} 
+					id={destinationStation.id} 
+					value={destinationStation.id}
+				>
+					{destinationStation.station_name}
+				</option>
 			)
 		})
-		// console.log('These are the DESTINATION stations', destinationStations);
 
 		const originLineStations = this.props.originStationsList
 		const originStations = originLineStations.map(originStation => {
 			return(
-				<option key={originStation.id} id={originStation.id} value={originStation.id}>{originStation.station_name}</option>
+				<option 
+					key={originStation.id} 
+					id={originStation.id} 
+					value={originStation.id}
+				>
+					{originStation.station_name}
+				</option>
 			)
 		})
-		// console.log('These are the ORIGIN stations', originStations);
 
-		// const stationIds = lineStations.map(station => station.id)
-		// console.log('station ids:', stationIds)
-		// for(let i = 0; i < stations.length; i++){
-		// 	return(<option key={station.id}>{station.name}</option>)
-		// }
-
-		// const stationList = stations.map(station => {
-		// 	return(
-		// 		option
-		// 	)
-		// })
-
-		// const stationList = lineStations.map(station => 
-		// )
-		// console.log('this is the stationList:', stationList);
 		return (
 			<Grid.Row>
 				<Card.Group>
@@ -167,6 +143,7 @@ class StationList extends React.Component {
 						</select>
 						<h3>Select Station:</h3>
 						<select name="originStation" className="stationList" onChange={this.handleChange} value={this.state.originStation}>
+							<option>---</option>
 							{ originStations }
 						</select>	
 						</Card.Content>
@@ -186,6 +163,7 @@ class StationList extends React.Component {
 						</select>
 						<h3>Select Station:</h3>
 						<select name="destinationStation" className="stationList" onChange={this.handleChange} value={this.state.destinationStation}>
+							<option>---</option>
 							{ destinationStations }
 						</select>
 					</Card.Content>
