@@ -10,7 +10,17 @@ class TripContainer extends Component {
 		this.state = {
 			originStationsList: [],
 			destinationStationsList: [],
-			createdTripList: []
+			createdTrips: [],
+			editModalOpen: true,
+			tripToEdit: {
+				ColorOrigin: '',
+				DirectionOrigin: '',
+				ColorDestination: '',
+				DirectionDestination: '',
+				originStation: '',
+				destinationStation: '',
+				id: ''
+			}
 			// stations: [],
 			// stationsList: [],
 			// line_color: "",
@@ -96,7 +106,7 @@ class TripContainer extends Component {
 		// put it in state
 			const createdTripParsed = await createdTripResponse.json()
 				this.setState({
-					createdTripList: [...this.state.createdTripList, createdTripParsed.data]
+					createdTrips: [...this.state.createdTrips, createdTripParsed.data]
 			})
 			console.log(createdTripParsed);
 		} catch(err){
@@ -105,10 +115,22 @@ class TripContainer extends Component {
 		}
 	}
 
-	// deleteTrip = async (id) => {
+	deleteTrip = async (id) => {
+		// deleting trip from database
+		console.log('this is CREATEDTRIPLIST', this.state.createdTrips);
+		const deleteTripResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/trips/' + id, {
+				method: 'DELETE',
+				credentials: 'include'
+		})
+		const deletedTripParsed = await deleteTripResponse.json()
+		// deletes trip from state
+		this.setState({
+			createdTrips: this.state.createdTrips.filter((createdTrip) => createdTrip.id !== id)})
+	}
 
-		
-	// }
+	editTrip = (idOfTripToEdit) => {
+		const tripToEdit = this.state.createdTrips.find(createdTrip => createdTrip.id === idOfTripToEdit)
+	}
 
 
 
@@ -116,12 +138,6 @@ class TripContainer extends Component {
 
 
 	render(){
-		// const theTrip = tripLine.map(trip => {
-		// 	return(
-		// 		<div >{ trip }</div>
-		// 	)
-		// })
-
 		return(
 			<Grid>
 				<div>
@@ -139,7 +155,8 @@ class TripContainer extends Component {
 					destinationStationsList={this.state.destinationStationsList}
 				/>
 				<TripList
-					createdTripList={this.state.createdTripList}
+					createdTrips={this.state.createdTrips}
+					deleteTrip={this.deleteTrip}
 				/>
 			</Grid>
 		)
