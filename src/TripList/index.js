@@ -8,7 +8,7 @@ function TripList(props){
 			// <h3> { tripStop.station_name } </h3>
 				<List>
 					<List.Item id={index} key={index}>
-							<h3 id={index}> { tripStop.start.station_name} >>> {tripStop.end.station_name}</h3>
+							<h3 id={index} value={props.createdTrips}> { tripStop.start.station_name} >>> {tripStop.end.station_name}</h3>
 					</List.Item>
 					<List.Item extra>
 							<Button onClick={() => props.deleteTrip(tripStop.id)}>Delete</Button>

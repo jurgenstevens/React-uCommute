@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import StationList from '../StationList';
 import TripList from '../TripList';
 import { Grid } from 'semantic-ui-react';
+// import 'semantic-ui-css/semantic.min.css';
+// import TripEditModal from '../TripEditModal'
 
 class TripContainer extends Component {
 	constructor(props){
@@ -11,16 +13,16 @@ class TripContainer extends Component {
 			originStationsList: [],
 			destinationStationsList: [],
 			createdTrips: [],
-			editModalOpen: true,
-			tripToEdit: {
-				ColorOrigin: '',
-				DirectionOrigin: '',
-				ColorDestination: '',
-				DirectionDestination: '',
-				originStation: '',
-				destinationStation: '',
-				id: ''
-			}
+			// editModalOpen: true,
+			// tripToEdit: {
+			// 	ColorOrigin: '',
+			// 	DirectionOrigin: '',
+			// 	ColorDestination: '',
+			// 	DirectionDestination: '',
+			// 	originStation: '',
+			// 	destinationStation: '',
+			// 	id: ''
+			// }
 			// stations: [],
 			// stationsList: [],
 			// line_color: "",
@@ -130,34 +132,91 @@ class TripContainer extends Component {
 
 	editTrip = (idOfTripToEdit) => {
 		const tripToEdit = this.state.createdTrips.find(createdTrip => createdTrip.id === idOfTripToEdit)
+		this.setState({
+			editModalOpen: true,
+			tripToEdit: {
+				...tripToEdit
+			}
+		})
 	}
 
+	handleEditChange = (event) => {
+		this.setState({
+			tripToEdit: {
+				...this.state.tripToEdit,
+			[event.target.name]: event.target.value
+			}
+		})
+	}
 
+	updateTrip = async (e) => {
+		e.preventDefault()
+		try {
+			const url = process.env.REACT_APP_API_URL + '/api/v1/trips' + this.state.tripToEdit.id
 
+			const updateResponse = await fetch(url, {
+				method: 'PUT',
+				credentials: 'include',
+				body: JSON.stringify(this.state.tripToEdit),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
 
+			const updateResponseParsed = await updateResponse.json()
 
+			const newTripArrayWithUpdate = this.state.createdTrips.map((createdTrip) => {
+				if(createdTrip.id === updateResponseParsed.data.id){
+
+				createdTrip = updateResponseParsed.data
+				}
+			return createdTrip
+			})
+			this.setState({
+				createdTrips: newTripArrayWithUpdate
+			})
+		}
+		catch (err) {
+			console.log(err)
+		}
+	}
+
+	closeModal = () => {
+	this.setState({
+		editModalOpen: false
+		})
+	}
 
 	render(){
 		return(
 			<Grid>
+				<Grid.Row>
 				<div>
 					<h1>uCommute!</h1>
 					<h3>Welcome back!</h3>
 					<h3>Plan Your Trip!</h3>
 				</div>
-				<StationList
-					setOrigin={this.setOrigin}
-					setDestination={this.setDestination}
-					stationsList={this.state.stationsList}
-					listStationsByColor={this.listStationsByColor}
-					createYourTrip={this.createYourTrip}
-					originStationsList={this.state.originStationsList}
-					destinationStationsList={this.state.destinationStationsList}
-				/>
-				<TripList
-					createdTrips={this.state.createdTrips}
-					deleteTrip={this.deleteTrip}
-				/>
+					<Grid.Column>
+						<StationList
+							setOrigin={this.setOrigin}
+							setDestination={this.setDestination}
+							stationsList={this.state.stationsList}
+							listStationsByColor={this.listStationsByColor}
+							createYourTrip={this.createYourTrip}
+							originStationsList={this.state.originStationsList}
+							destinationStationsList={this.state.destinationStationsList}
+						/>
+					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row>
+					<Grid.Column>				
+						<TripList
+							createdTrips={this.state.createdTrips}
+							deleteTrip={this.deleteTrip}
+							editTrip={this.editTrip}
+						/>
+					</Grid.Column>
+				</Grid.Row>			
 			</Grid>
 		)
 	}

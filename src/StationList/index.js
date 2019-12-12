@@ -86,21 +86,28 @@ class StationList extends React.Component {
 		const colorArr = ["Orange", "Red", "Blue", "Green", "Pink", "Brown", "Purple", "Yellow"]
 		const lines = []
 		for (const [index, value] of colorArr.entries()){
-			lines.push(<option key={index}>{value}</option>)
+			lines.push(
+				<option key={index}>
+					{value}
+				</option>)
 		}
 
 		// this is for the direction dropdown
 		const directionArr = ["Outbound", "Inbound"]
 		const direction = []
 		for (const [index, value] of directionArr.entries()){
-			direction.push(<option key={index}>{value}</option>)
+			direction.push(
+				<option key={index}>
+					{value}
+				</option>)
 		}
 
 		// lineStations contains the JSON with the requested train stops from the database
 		const destinationLineStations = this.props.destinationStationsList
 		const destinationStations = destinationLineStations.map(destinationStation => {
 			return(
-				<option key={destinationStation.id} 
+				<option 
+					key={destinationStation.id} 
 					id={destinationStation.id} 
 					value={destinationStation.id}
 				>
@@ -130,9 +137,14 @@ class StationList extends React.Component {
 							<h1>Fill in all fields!</h1>
 							: null
 						}
+						<div className="originDiv">
 						<h2>Origin</h2>
 						<h3>Select Line:</h3>
-						<select name="ColorOrigin" className="selectLine"onChange={this.handleChange} value={this.state.ColorOrigin}>
+						<select 
+							name="ColorOrigin" 
+							className="selectLine" 
+							onChange={this.handleChange} 
+							value={this.state.ColorOrigin}>
 							<option>---</option>
 							{lines}
 						</select>
@@ -145,30 +157,45 @@ class StationList extends React.Component {
 						<select name="originStation" className="stationList" onChange={this.handleChange} value={this.state.originStation}>
 							<option>---</option>
 							{ originStations }
-						</select>	
+						</select>
+						</div>	
 						</Card.Content>
 				</Card.Group>				
 				<Card.Group>
-					<Card.Content>			
+					<Card.Content>
+					<div className="destinationDiv">	
 						<h1>Destination</h1>
 						<h3>Select Line:</h3>
-						<select name="ColorDestination" className="selectLine" onChange={this.handleChange} value={this.state.ColorDestination}>
+						<select 
+							name="ColorDestination" 
+							className="selectLine" 
+							onChange={this.handleChange} 
+							value={this.state.ColorDestination}>
 							<option>---</option>
 							{lines}
 						</select>
 						<h3>Direction:</h3>
-						<select name="DirectionDestination" className="direction" onChange={this.handleChange} value={this.state.DirectionDestination}>
+						<select 
+							name="DirectionDestination" 
+							className="direction" 
+							onChange={this.handleChange} 
+							value={this.state.DirectionDestination}>
 							<option>---</option>
 							{direction}
 						</select>
 						<h3>Select Station:</h3>
-						<select name="destinationStation" className="stationList" onChange={this.handleChange} value={this.state.destinationStation}>
+						<select 
+							name="destinationStation" 
+							className="stationList" 
+							onChange={this.handleChange} 
+							value={this.state.destinationStation}>
 							<option>---</option>
 							{ destinationStations }
 						</select>
+					</div>
 					</Card.Content>
 				</Card.Group>
-				<Button onClick={this.handleSubmit}>Start Trip!</Button>
+				<Button className="startTripButton" onClick={this.handleSubmit}>Start Trip!</Button>
 			</Grid.Row>
 		)
 	}

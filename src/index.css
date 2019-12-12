@@ -13,3 +13,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ui.inverted.segment,
+.ui.primary.inverted.segment {
+  background: #1B1C1D;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.originDiv {
+  width:405px;
+  margin:0 20px 20px 0;
+  padding-top:20px;
+  border:solid 2px white;
+  float:left;
+  background: black;
+  text-align:center;
+}
+
+.destinationDiv {
+  float:right;
+  position:relative;
+  border:solid 2px white;
+  width:405px;
+  margin:0 20px 20px 0;
+  padding-top:20px;
+}
+
+.startTripButton{
+  background-color: #008CBA;
+  font-size: 20px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  color: white;
+}
+
+
+
+
+
+
+
