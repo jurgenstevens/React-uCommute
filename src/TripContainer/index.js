@@ -44,21 +44,17 @@ class TripContainer extends Component {
 				}
 			)
 			const parsedStations = await stations.json();
-			// console.log("parsedStations");
-			// console.log(parsedStations);
 			this.setState({
 				stations: parsedStations.data // importing all the stations thru here!
 			});
-		console.log("this.state -- getStations")
-		console.log(this.state);
 		} catch (err) {
 			console.log(err);
 		}
 	}
 
 	listStationsByColor = async (tripInfo) => {
-		// console.log("in listStationsByColor, here's tripInfo")
-		// console.log(tripInfo)
+		console.log("in listStationsByColor, here's tripInfo")
+		console.log(tripInfo)
 		// console.log(tripInfo.DirectionOrigin); // this keeps coming back undefined ????? WHYYYYYLKEJDKLFHASK:LDFN<
 		// console.log(tripInfo.ColorOrigin); // this too
 		// console.log(tripInfo.ColorDestination);
@@ -71,7 +67,6 @@ class TripContainer extends Component {
 		this.setState({
 			originStationsList: originStationListParsed.data
 		})
-		// console.log(originStationListParsed);
 		// only send color and direction info to the api
 		// the origin info is ONLY for the front end
 		const getDestinationStationsListResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/stations/" + tripInfo.ColorDestination + "/" + tripInfo.DirectionDestination, {
