@@ -25,6 +25,17 @@
   color: black;
 }
 
+.front-page-map {
+  width: 28%; 
+  height: 28%; 
+  float: left;
+  padding-left: 100px;
+}
+
+.form-style {
+  float: center;
+  font-size: 28px;
+}
 
 /*line color dropdown style*/
 .selectLine {
@@ -111,6 +122,9 @@
 .direction option {
   font-weight:normal;
 }
+
+
+
 
 /* station dropdown style*/
 .stationList {

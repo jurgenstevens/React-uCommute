@@ -57,13 +57,14 @@ class LoginRegisterForm extends React.Component {
 		return(
 			<div className="LoginRegisterForm">
 				<h1>uCommute</h1>
+				<img src={'https://66.media.tumblr.com/33bf268c2fb66b305b92c7a90b588ce0/tumblr_plaxesvk9o1tk3uvho1_400.png'} className='front-page-map'/>
 				<Form onSubmit={this.handleSubmit}>
 		        	{
 		         		this.state.action === "register"
 				        ?
 				        <React.Fragment>
 				        <Label>Username:</Label>
-				        <Form.Input 
+				        <Form.Input className="form-style"
 				        	type="text" 
 				        	name="username" 
 				        	value={this.state.username}
@@ -74,14 +75,14 @@ class LoginRegisterForm extends React.Component {
 				        null
 			        }
 		        <Label>Email:</Label>
-		        <Form.Input 
+		        <Form.Input className="form-style"
 		            type="email" 
 		            name="email" 
 		            value={this.state.email}
 		            onChange={this.handleChange}
 		        />
 		        <Label>Password:</Label>
-		        <Form.Input 
+		        <Form.Input className="form-style"
 		            type="password" 
 		            name="password" 
 		            value={this.state.password}
