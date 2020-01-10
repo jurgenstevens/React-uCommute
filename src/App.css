@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
+
 .App {
   text-align: center;
 }
@@ -23,6 +25,11 @@
 
 .body {
   color: black;
+}
+
+.logo{
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
 }
 
 .front-page-map {
@@ -123,7 +130,11 @@
   font-weight:normal;
 }
 
+.loginRegisterForm {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 45px;
 
+}
 
 
 /* station dropdown style*/

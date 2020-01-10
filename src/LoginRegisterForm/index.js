@@ -55,8 +55,7 @@ class LoginRegisterForm extends React.Component {
 
 	render() {
 		return(
-			<div className="LoginRegisterForm">
-				<h1>uCommute</h1>
+			<div className="loginRegisterForm">
 				<img src={'https://66.media.tumblr.com/33bf268c2fb66b305b92c7a90b588ce0/tumblr_plaxesvk9o1tk3uvho1_400.png'} className='front-page-map'/>
 				<Form onSubmit={this.handleSubmit}>
 		        	{

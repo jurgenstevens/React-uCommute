@@ -187,7 +187,6 @@ class TripContainer extends Component {
 			<Grid>
 				<Grid.Row>
 				<div>
-					<h1>uCommute!</h1>
 					<h3>Welcome back!</h3>
 					<h3>Plan Your Trip!</h3>
 				</div>

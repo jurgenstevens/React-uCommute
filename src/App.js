@@ -64,6 +64,11 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
+        <div>
+          {" "}
+            <h1 className="logo">uCommute</h1>
+          {" "}
+        </div>
         {
           this.state.loggedIn
           ?
