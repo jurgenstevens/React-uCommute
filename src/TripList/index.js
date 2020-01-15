@@ -19,7 +19,7 @@ function TripList(props){
 	})
 	return(
 		<List>
-			<h3>Below are your trips:</h3>
+			<h3 className="tripList">Below are your trips:</h3>
 			{ tripStops }
 		</List>
 	)

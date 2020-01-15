@@ -162,7 +162,7 @@ class StationList extends React.Component {
 								onChange={this.handleChange} 
 								value={this.state.originStation}>
 							<option>---</option>
-							{ originStations }
+							{originStations}
 						</select>
 						</div>	
 						</Card.Content>
@@ -196,7 +196,7 @@ class StationList extends React.Component {
 							onChange={this.handleChange} 
 							value={this.state.destinationStation}>
 							<option>---</option>
-							{ destinationStations }
+							{destinationStations}
 						</select>
 					</div>
 					</Card.Content>

@@ -13,6 +13,8 @@ class TripContainer extends Component {
 			originStationsList: [],
 			destinationStationsList: [],
 			createdTrips: [],
+			DirectionOrigin: [],
+			DirectionDestination: []
 			// editModalOpen: true,
 			// tripToEdit: {
 			// 	ColorOrigin: '',
@@ -186,7 +188,7 @@ class TripContainer extends Component {
 		return(
 			<Grid>
 				<Grid.Row>
-				<div>
+				<div className="landingPage">
 					<h3>Welcome back!</h3>
 					<h3>Plan Your Trip!</h3>
 				</div>
